@@ -8,6 +8,6 @@ using CitableAnnotations
 
 include("plaintext.jl")
 
-export formatms
+export formatpage, formatms
 
 end # module HmtGutenberg
