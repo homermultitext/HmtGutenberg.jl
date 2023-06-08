@@ -18,16 +18,15 @@ function formatpagescholia(msurn::Cite2Urn, psgs::Vector{CtsUrn}, corpus::Citabl
             end
         end
     end
-    
+    scholiacontent = filter(psg -> ! isempty(psg.text), scholiapassages)
+
     content = if msurn == VENETUS_A
-        formatAscholia(scholiapassages, commentary; md = md, grouping = grouping)
-
+        formatAscholia(scholiacontent, commentary; md = md, grouping = grouping)
     elseif msurn == BURNEY86
-        formatTscholia(scholiapassages, commentary; md = md, grouping = grouping)
+        formatTscholia(scholiacontent, commentary; md = md, grouping = grouping)
     else
-        formatgenericscholia(scholiapassages, commentary; md = md)
+        formatgenericscholia(scholiacontent, commentary; md = md)
     end
-
     content
 end
 
@@ -35,6 +34,7 @@ end
 $(SIGNATURES)
 """
 function formatscholion(scholion::CitablePassage, commentary::CitableCommentary; md = true)
+    filter(pr -> pr[1] == scholion.urn, commentary.commentary)
 end
 
 function groupAscholia(psgs::Vector{CitablePassage}, commentary::CitableCommentary; md = true)
