@@ -27,11 +27,8 @@ function formatpage(pg::MSPage,
             push!(outputlines, "Iliad $(reff[1])-$(reff[end])")
         end
     end
-
-    iliadlines = formatpageiliad(iliadlines, corpus; md = md)
-    for ln in iliadlines
-        push!(outputlines, ln)
-    end
+    push!(outputlines, formatpageiliad(iliadlines, corpus; md = md))
+    
 
     if grouping == :byline
         # Group by Iliad line

@@ -10,5 +10,16 @@ end
 $(SIGNATURES)
 """
 function formatpageiliad(lns::Vector{CtsUrn}, corpus::CitableTextCorpus; md = true)
-    []
+    iliadlines = String[]
+    for ln in lns
+        matches = filter(psg -> dropexemplar(psg.urn) == ln, corpus.passages)
+        if isempty(matches)
+            @warn("Error finding $(ln) in corpus.")
+        elseif length(matches) > 1
+            @warn("Matched multiple passages in corpus for URN $(ln).")
+        else
+            push!(iliadlines, iliadline(matches[1], md = md))
+        end
+    end
+    join(iliadlines, "\n")
 end
