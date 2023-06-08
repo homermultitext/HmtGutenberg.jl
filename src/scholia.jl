@@ -33,12 +33,39 @@ end
 """Format an individual scholion.
 $(SIGNATURES)
 """
-function formatscholion(scholion::CitablePassage, commentary::CitableCommentary; md = true)
-    filter(pr -> pr[1] == scholion.urn, commentary.commentary)
+function formatscholion(scholionparts::Vector{CitablePassage}, commentary::CitableCommentary; md = true)
+    content = map(s -> s.text, scholionparts)
+    txt = join(content, " ")
+
+    referenceurn = collapsePassageBy(scholionparts[1].urn, 1) |> dropexemplar 
+    linkurns = filter(pr -> pr[1] == referenceurn, commentary.commentary)
+    reply = if isempty(linkurns) 
+        "Unindexed scholion: $(txt)"
+    else
+        linkref = linkurns[1][2] |> passagecomponent
+        md ? "On *Iliad* $(linkref): $(txt)"  :  "On Iliad $(linkref): $(txt)"
+    end
+    reply
 end
 
 function groupAscholia(psgs::Vector{CitablePassage}, commentary::CitableCommentary; md = true)
-    "A scholia grouped by class"
+    
+    urnlist = map(psg -> collapsePassageBy(psg.urn, 1),psgs ) |> unique
+
+    outputlines = String[]
+## DO GROUPING
+# "A scholia grouped by class"
+    for u in urnlist
+        tidier = dropexemplar(u)
+        @debug("LOOK FOR SCHOLION $(tidier)")
+        scholiaparts = filter(p -> dropexemplar(collapsePassageBy(p.urn, 1)) == tidier, psgs)
+
+
+
+        push!(outputlines, formatscholion(scholiaparts, commentary))
+
+    end
+    join(outputlines, "\n")
 end
 
 function bylineAscholia(psgs::Vector{CitablePassage}, commentary::CitableCommentary; md = true)

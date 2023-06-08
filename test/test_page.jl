@@ -6,11 +6,11 @@
     sequence = 599
     samplepage = MSPage(u, pglabel, rv, img, sequence)
 
-    cex = joinpath(pwd(), "data", "hmt-2023a.cex") |> read |> String
-    dse = hmt_dse(cex)[1]
-    corpus = hmt_normalized(cex)
-    commentary = hmt_commentary(cex)[1]
-    ms = hmt_codices(cex)[6]
+    cexdata = joinpath(pwd(), "data", "hmt-2023a.cex") |> read |> String
+    dse = hmt_dse(cexdata)[1]
+    corpus = hmt_normalized(cexdata)
+    commentary = hmt_commentary(cexdata)[1]
+    ms = hmt_codices(cexdata)[6]
 
 
     mdoutput = formatpage(samplepage, 
