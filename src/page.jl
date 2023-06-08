@@ -1,7 +1,4 @@
 
-
-
-
 """Format a plain-text edition of manuscript page `pg` using supplied data.  If `md` is true, include markdown formatting.
 $(SIGNATURES)
 """
