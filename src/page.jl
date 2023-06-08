@@ -36,7 +36,7 @@ function formatpage(pg::MSPage,
         else
             push!(outputlines, "\nScholia to Iliad $(reff[1])-$(reff[end])\n")
         end
-        push!(outputlines, formatpagescholia(msurn, scholia, corpus, commentary; md = true, grouping = grouping))
+        push!(outputlines, formatpagescholia(msurn, scholia, corpus, commentary; md = md, grouping = grouping))
     end
 
 

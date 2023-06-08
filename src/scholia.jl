@@ -8,7 +8,7 @@ $(SIGNATURES)
 function formatpagescholia(msurn::Cite2Urn, psgs::Vector{CtsUrn}, corpus::CitableTextCorpus, commentary::CitableCommentary; md = true, grouping = :byclass)
     scholiapassages = CitablePassage[]
     for scholion in psgs
-        @info("Look for sch $(scholion)")
+        @debug("Look for sch $(scholion)")
         matches = filter(psg -> collapsePassageBy(dropexemplar(psg.urn),1) == scholion, corpus.passages)
         if isempty(matches)
             @warn("Error finding $(scholion) in corpus.")
@@ -21,6 +21,7 @@ function formatpagescholia(msurn::Cite2Urn, psgs::Vector{CtsUrn}, corpus::Citabl
     scholiacontent = filter(psg -> ! isempty(psg.text), scholiapassages)
 
     content = if msurn == VENETUS_A
+        @info("Format A scholia with md $(md)")
         formatAscholia(scholiacontent, commentary; md = md, grouping = grouping)
     elseif msurn == BURNEY86
         formatTscholia(scholiacontent, commentary; md = md, grouping = grouping)
@@ -34,6 +35,7 @@ end
 $(SIGNATURES)
 """
 function formatscholion(scholionparts::Vector{CitablePassage}, commentary::CitableCommentary; md = true)
+    @info("Formatting scnholion with md $(md)")
     content = map(s -> s.text, scholionparts)
     txt = join(content, " ")
 
@@ -68,6 +70,7 @@ function groupAscholia(psgs::Vector{CitablePassage}, commentary::CitableCommenta
         workid = parts(workcomponent(u))[2]
 
         scholiaparts = filter(p -> dropexemplar(collapsePassageBy(p.urn, 1)) == tidier, psgs)
+        @info("Invoking formatscholion with md $(md)")
         if workid == "msA"
             push!(mainscholia, formatscholion(scholiaparts, commentary, md = md))
         elseif workid == "msAext"
@@ -99,6 +102,7 @@ $(SIGNATURES)
 """
 function formatAscholia(psgs::Vector{CitablePassage}, commentary::CitableCommentary; md = true, grouping = :byclass)
     if grouping == :byclass
+        @debug("Informatin VA formatting with md $(md)")
         groupAscholia(psgs, commentary; md = md)
     else
         bylineAscholia(psgs, commentary; md = md)
