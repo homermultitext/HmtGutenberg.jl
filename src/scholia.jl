@@ -21,7 +21,7 @@ function formatpagescholia(msurn::Cite2Urn, psgs::Vector{CtsUrn}, corpus::Citabl
     scholiacontent = filter(psg -> ! isempty(psg.text), scholiapassages)
 
     content = if msurn == VENETUS_A
-        @info("Format A scholia with md $(md)")
+        @debug("Format A scholia with md $(md)")
         formatAscholia(scholiacontent, commentary; md = md, grouping = grouping)
     elseif msurn == BURNEY86
         formatTscholia(scholiacontent, commentary; md = md, grouping = grouping)
@@ -35,7 +35,7 @@ end
 $(SIGNATURES)
 """
 function formatscholion(scholionparts::Vector{CitablePassage}, commentary::CitableCommentary; md = true)
-    @info("Formatting scnholion with md $(md)")
+    @debug("Formatting scnholion with md $(md)")
     content = map(s -> s.text, scholionparts)
     txt = join(content, " ")
 
@@ -70,7 +70,7 @@ function groupAscholia(psgs::Vector{CitablePassage}, commentary::CitableCommenta
         workid = parts(workcomponent(u))[2]
 
         scholiaparts = filter(p -> dropexemplar(collapsePassageBy(p.urn, 1)) == tidier, psgs)
-        @info("Invoking formatscholion with md $(md)")
+        @debug("Invoking formatscholion with md $(md)")
         if workid == "msA"
             push!(mainscholia, formatscholion(scholiaparts, commentary, md = md))
         elseif workid == "msAext"
@@ -84,13 +84,14 @@ function groupAscholia(psgs::Vector{CitablePassage}, commentary::CitableCommenta
         end
     end
     
-    join([
-        join(mainscholia, "\n"),
-        join(ail, "\n"),
-        join(aim, "\n"),
-        join(aext, "\n"),
-        join(aint, "\n"),
-    ], "\n")
+    maintext = length(mainscholia) == 1 ? "" : join(mainscholia, "\n")
+    ailtext =  length(ail) == 1 ? "" : join(ail, "\n")
+    aimtext =  length(aim) == 1 ? "" : join(aim, "\n")
+    ainttext =  length(aint) == 1 ? "" : join(aint, "\n")
+    aexttext = length(aext) == 1 ? "" : join(aext, "\n")
+    join(
+        [maintext, ailtext, aimtext, ainttext, aexttext], 
+        "\n")
 end
 
 function bylineAscholia(psgs::Vector{CitablePassage}, commentary::CitableCommentary; md = true)
