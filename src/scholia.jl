@@ -8,8 +8,7 @@ $(SIGNATURES)
 function formatpagescholia(msurn::Cite2Urn, lns::Vector{CtsUrn}, corpus::CitableTextCorpus, commentary::CitableCommentary; md = true, grouping = :byclass)
 
 
-
-    []
+    ""
 end
 
 

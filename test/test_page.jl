@@ -1,10 +1,10 @@
 @testset "Test formatting a MS page" begin
     u = Cite2Urn("urn:cite2:hmt:msA.v1:300r")
-    label = "Folio 300 recto in the Venetus A"
+    pglabel = "Folio 300 recto in the Venetus A"
     rv = "recto"
     img = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA300RN_0470")
     sequence = 599
-    samplepage = MSPage(u, label, rv, img, sequence)
+    samplepage = MSPage(u, pglabel, rv, img, sequence)
 
     cex = joinpath(pwd(), "data", "hmt-2023a.cex") |> read |> String
     dse = hmt_dse(cex)[1]
