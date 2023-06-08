@@ -1,3 +1,3 @@
 # HmtGutenberg.jl
 
-Generate plain-text editions of editions in the HMT archive in as many formats as you please.
+Generate plain-text editions of texts in the HMT archive in as many formats as you please.
