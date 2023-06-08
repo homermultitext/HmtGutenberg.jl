@@ -1,4 +1,3 @@
-
 """Format a plain-text edition of manuscript page `pg` using supplied data.  If `md` is true, include markdown formatting.
 $(SIGNATURES)
 """
@@ -27,7 +26,6 @@ function formatpage(pg::MSPage,
     end
     push!(outputlines, formatpageiliad(iliadlines, corpus; md = md))
     
-
     scholia = filter(u -> startswith(workcomponent(u), "tlg5026"), alltexts)
     if isempty(scholia)
     else
@@ -36,12 +34,14 @@ function formatpage(pg::MSPage,
         else
             push!(outputlines, "\nScholia to Iliad $(reff[1])-$(reff[end])\n")
         end
-        push!(outputlines, formatpagescholia(msurn, scholia, corpus, commentary; md = md, grouping = grouping))
+
+        if grouping == :byclass && (msurn == VENETUS_A || msurn == BURNEY86)
+            push!(outputlines, pagescholiabygroup(msurn, scholia, corpus, commentary; md = md))
+
+        else
+            push!(outputlines, pagescholiabyline(iliadlines, commentary, corpus; md = md))
+        end
     end
-
-
-    
- 
 
     join(outputlines, "\n")
     
