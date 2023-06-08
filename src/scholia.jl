@@ -84,7 +84,7 @@ function groupAscholia(psgs::Vector{CitablePassage}, commentary::CitableCommenta
         end
     end
     
-    maintext = length(mainscholia) == 1 ? "" : join(mainscholia, "\n")
+    maintext = length(mainscholia) == 1 ? "\n" : join(mainscholia, "\n")
     ailtext =  length(ail) == 1 ? "" : join(ail, "\n")
     aimtext =  length(aim) == 1 ? "" : join(aim, "\n")
     ainttext =  length(aint) == 1 ? "" : join(aint, "\n")
