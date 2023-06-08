@@ -1,5 +1,10 @@
 module HmtGutenberg
 
-greet() = print("Hello World!")
+using HmtArchive.Analysis
+using CitableBase, CitableText, CitableCorpus
+using CitablePhysicalText
+#using CitableAnnotations
+
+include("plaintext.jl")
 
 end # module HmtGutenberg
