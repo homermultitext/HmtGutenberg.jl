@@ -52,20 +52,42 @@ function groupAscholia(psgs::Vector{CitablePassage}, commentary::CitableCommenta
     
     urnlist = map(psg -> collapsePassageBy(psg.urn, 1),psgs ) |> unique
 
-    outputlines = String[]
-## DO GROUPING
-# "A scholia grouped by class"
+    
+
+    mainscholia = ["Main scholia\n"]
+    ail = ["Interlinear scholia\n"]
+    aim = ["Intermarginal scholia\n"]
+    aext = ["Exterior scholia\n"]
+    aint = ["Interior scholia\n"]
+
+
+
+
     for u in urnlist
         tidier = dropexemplar(u)
-        @debug("LOOK FOR SCHOLION $(tidier)")
+        workid = parts(workcomponent(u))[2]
+
         scholiaparts = filter(p -> dropexemplar(collapsePassageBy(p.urn, 1)) == tidier, psgs)
-
-
-
-        push!(outputlines, formatscholion(scholiaparts, commentary))
-
+        if workid == "msA"
+            push!(mainscholia, formatscholion(scholiaparts, commentary, md = md))
+        elseif workid == "msAext"
+            push!(aext, formatscholion(scholiaparts, commentary,  md = md))   
+        elseif workid == "msAint"
+            push!(aint, formatscholion(scholiaparts, commentary,  md = md))
+        elseif workid == "msAim"
+            push!(aim, formatscholion(scholiaparts, commentary,  md = md))
+        elseif workid == "msAil"
+            push!(ail, formatscholion(scholiaparts, commentary,  md = md))
+        end
     end
-    join(outputlines, "\n")
+    
+    join([
+        join(mainscholia, "\n"),
+        join(ail, "\n"),
+        join(aim, "\n"),
+        join(aext, "\n"),
+        join(aint, "\n"),
+    ], "\n")
 end
 
 function bylineAscholia(psgs::Vector{CitablePassage}, commentary::CitableCommentary; md = true)
