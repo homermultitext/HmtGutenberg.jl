@@ -6,7 +6,12 @@ using CitableObject
 using CitablePhysicalText
 using CitableAnnotations
 
-include("plaintext.jl")
+using Documenter, DocStringExtensions
+
+include("iliad.jl")
+include("scholia.jl")
+include("page.jl")
+include("manuscript.jl")
 
 export formatpage, formatms
 
