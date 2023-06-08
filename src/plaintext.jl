@@ -5,6 +5,9 @@ function iliadline(psg::CitablePassage; md = true)
     md ? "`$(passagecomponent(psg.urn))` $(psg.text)"  : "$(passagecomponent(psg.urn)) $(psg.text)" 
 end
 
+function formatpageiliad(lns::Vector{CtsUrn}, corpus::CitableTextCorpus; md = true)
+    []
+end
 
 """Format a plain-text edition of manuscript page `pg` using supplied data.  If `md` is true, include markdown formatting."""
 function formatpage(pg::MSPage, 
@@ -15,8 +18,6 @@ function formatpage(pg::MSPage,
 
     outputlines = String[]
     md ? push!(outputlines, "### $(label(pg))\n") : push!(outputlines, label(pg) * "\n")
-
-
 
 
     alltexts = textsforsurface(pg.urn, dse)
@@ -30,6 +31,11 @@ function formatpage(pg::MSPage,
         else
             push!(outputlines, "Iliad $(reff[1])-$(reff[end])")
         end
+    end
+
+    iliadlines = formatpageiliad(iliadlines, corpus; md = md)
+    for ln in iliadlines
+        push!(outputlines, ln)
     end
 
     join(outputlines, "\n")
