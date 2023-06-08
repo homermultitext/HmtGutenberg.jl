@@ -2,6 +2,7 @@ using Test
 
 using HmtGutenberg
 using HmtArchive.Analysis
+using CitableBase
 using CitableText, CitableCorpus
 using CitablePhysicalText
 using CitableObject

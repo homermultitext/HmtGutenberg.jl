@@ -10,15 +10,16 @@
     dse = hmt_dse(cex)[1]
     corpus = hmt_normalized(cex)
     commentary = hmt_commentary(cex)[1]
+    ms = hmt_codices(cex)[6]
 
 
     mdoutput = formatpage(samplepage, 
-    dse, corpus,commentary;
+    urn(ms), dse, corpus,commentary;
     md = true)
     println(mdoutput)
 
     plaintextoutput =  formatpage(samplepage, 
-    dse, corpus,commentary;
+    urn(ms), dse, corpus,commentary;
     md = false)
 
     println(plaintextoutput)
