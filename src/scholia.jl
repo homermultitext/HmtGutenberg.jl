@@ -1,11 +1,36 @@
 
+"""Format an individual scholion.
+$(SIGNATURES)
+"""
+function formatscholion(scholionparts::Vector{CitablePassage}, commentary::CitableCommentary; md = true, withref = true)
+    txt = scholiontext(scholionparts)
+
+    referenceurn = collapsePassageBy(scholionparts[1].urn, 1) |> dropexemplar 
+    linkurns = filter(pr -> pr[1] == referenceurn, commentary.commentary)
+    reply = if isempty(linkurns) 
+        withref ? "Unindexed scholion: $(txt)" : txt
+    else
+        linkref = linkurns[1][2] |> passagecomponent
+        if withref
+            md ? "On *Iliad* $(linkref): $(txt)"  :  "On Iliad $(linkref): $(txt)"
+        else
+            txt
+        end
+    end
+    reply
+end
+
+function scholiontext(scholionparts::Vector{CitablePassage})
+    content = map(s -> s.text, scholionparts)
+    join(content, " ")
+end
 
 """Format a group of scholia for a single page.  If `grouping` is `:byline`, then
 cluster scholia by the line they comment on; otherwise, cluster by scholia group 
 (relevant for VA and Burney 86).
 $(SIGNATURES)
 """
-function formatpagescholia(msurn::Cite2Urn, psgs::Vector{CtsUrn}, corpus::CitableTextCorpus, commentary::CitableCommentary; md = true, grouping = :byclass)
+function pagescholiabygroup(msurn::Cite2Urn, psgs::Vector{CtsUrn}, corpus::CitableTextCorpus, commentary::CitableCommentary; md = true)
     scholiapassages = CitablePassage[]
     for scholion in psgs
         @debug("Look for sch $(scholion)")
@@ -22,49 +47,29 @@ function formatpagescholia(msurn::Cite2Urn, psgs::Vector{CtsUrn}, corpus::Citabl
 
     content = if msurn == VENETUS_A
         @debug("Format A scholia with md $(md)")
-        formatAscholia(scholiacontent, commentary; md = md, grouping = grouping)
+        groupAscholia(scholiacontent, commentary; md = md) 
+
     elseif msurn == BURNEY86
-        formatTscholia(scholiacontent, commentary; md = md, grouping = grouping)
+        groupTscholia(scholiacontent, commentary; md = md, grouping = grouping)
     else
-        formatgenericscholia(scholiacontent, commentary; md = md)
+        genericbyline(scholiacontent, commentary; md = md)
     end
     content
 end
 
-"""Format an individual scholion.
+
+
+"""Format one page of Venetus A scholia grouped by document.
 $(SIGNATURES)
 """
-function formatscholion(scholionparts::Vector{CitablePassage}, commentary::CitableCommentary; md = true)
-    @debug("Formatting scnholion with md $(md)")
-    content = map(s -> s.text, scholionparts)
-    txt = join(content, " ")
-
-    referenceurn = collapsePassageBy(scholionparts[1].urn, 1) |> dropexemplar 
-    linkurns = filter(pr -> pr[1] == referenceurn, commentary.commentary)
-    reply = if isempty(linkurns) 
-        "Unindexed scholion: $(txt)"
-    else
-        linkref = linkurns[1][2] |> passagecomponent
-        md ? "On *Iliad* $(linkref): $(txt)"  :  "On Iliad $(linkref): $(txt)"
-    end
-    reply
-end
-
 function groupAscholia(psgs::Vector{CitablePassage}, commentary::CitableCommentary; md = true)
-    
-    urnlist = map(psg -> collapsePassageBy(psg.urn, 1),psgs ) |> unique
-
-    
-
     mainscholia = ["Main scholia\n"]
     ail = ["Interlinear scholia\n"]
     aim = ["Intermarginal scholia\n"]
     aext = ["Exterior scholia\n"]
     aint = ["Interior scholia\n"]
 
-
-
-
+    urnlist = map(psg -> collapsePassageBy(psg.urn, 1),psgs ) |> unique
     for u in urnlist
         tidier = dropexemplar(u)
         workid = parts(workcomponent(u))[2]
@@ -89,37 +94,39 @@ function groupAscholia(psgs::Vector{CitablePassage}, commentary::CitableCommenta
     aimtext =  length(aim) == 1 ? "" : join(aim, "\n")
     ainttext =  length(aint) == 1 ? "" : join(aint, "\n")
     aexttext = length(aext) == 1 ? "" : join(aext, "\n")
-    join(
-        [maintext, ailtext, aimtext, ainttext, aexttext], 
-        "\n")
+    
+    join([maintext, ailtext, aimtext, ainttext, aexttext],"\n")
 end
 
-function bylineAscholia(psgs::Vector{CitablePassage}, commentary::CitableCommentary; md = true)
-    "A scholia grouped by line of Iliad"
-end
+##################################### TBD ##############################################
+#
+### IMPLEMENT:
 
-"""Format one page of Venetus A scholia.
-$(SIGNATURES)
-"""
-function formatAscholia(psgs::Vector{CitablePassage}, commentary::CitableCommentary; md = true, grouping = :byclass)
-    if grouping == :byclass
-        @debug("Informatin VA formatting with md $(md)")
-        groupAscholia(psgs, commentary; md = md)
-    else
-        bylineAscholia(psgs, commentary; md = md)
-    end
-end
-
-
-
-
-
-### IMPLEMENT THESE:
-
-function formatTscholia(psgs::Vector{CitablePassage}, commentary::CitableCommentary; md = true, grouping = :byclass)
+function groupTscholia(psgs::Vector{CitablePassage}, commentary::CitableCommentary; md = true, grouping = :byclass)
     "SOME T SCHOLIA"
 end
+#
+########################################################################################
 
-function formatgenericscholia(psgs::Vector{CitablePassage}, commentary::CitableCommentary; md = true)
-    "SOME GENERIC SCHOLIA"
+
+
+function pagescholiabyline(lines::Vector{CtsUrn}, commentary::CitableCommentary, corpus::CitableTextCorpus; md = true)
+    outputlines = String[]
+    for ln in lines
+        scholiaurns = filter(pr -> pr[2] == ln, commentary.commentary)
+        if isempty(scholiaurns)
+            #@
+        else
+            md ? push!(outputlines, "Scholia to *Iliad* $(passagecomponent(ln))\n") : push!(outputlines, "Scholia to Iliad $(passagecomponent(ln))")
+            for s in scholiaurns
+                @debug("CHECKING $(s[1])")
+                scholparts = filter(psg -> urncontains(s[1], psg.urn), corpus.passages)
+                scholtext = scholiontext(scholparts)
+                md ? push!(outputlines, "- $(scholtext)") : push!(outputlines, scholtext)
+            end
+            push!(outputlines, "\n")
+        
+        end
+    end
+    join(outputlines,"\n")
 end
