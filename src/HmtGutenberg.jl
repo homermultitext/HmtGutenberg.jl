@@ -8,6 +8,8 @@ using CitableAnnotations
 
 using Documenter, DocStringExtensions
 
+
+include("constants.jl")
 include("iliad.jl")
 include("scholia.jl")
 include("page.jl")

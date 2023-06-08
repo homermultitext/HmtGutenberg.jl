@@ -6,6 +6,7 @@
 $(SIGNATURES)
 """
 function formatpage(pg::MSPage, 
+    msurn::Cite2Urn,
     dse::DSECollection, 
     corpus::CitableTextCorpus, 
     commentary::CitableCommentary; 
@@ -14,8 +15,8 @@ function formatpage(pg::MSPage,
     outputlines = String[]
     md ? push!(outputlines, "### $(label(pg))\n") : push!(outputlines, label(pg) * "\n")
 
-
     alltexts = textsforsurface(pg.urn, dse)
+    
     iliadlines = filter(u -> startswith(workcomponent(u), "tlg0012.tlg001"), alltexts)
     reff = map(u -> passagecomponent(u), iliadlines)
     @info("Formatting page $(pg)")
@@ -30,12 +31,12 @@ function formatpage(pg::MSPage,
     push!(outputlines, formatpageiliad(iliadlines, corpus; md = md))
     
 
-    if grouping == :byline
+    #if grouping == :byline
         # Group by Iliad line
 
-    else
+    #else
         
-    end
+    #end
 
     join(outputlines, "\n")
     

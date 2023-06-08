@@ -10,7 +10,7 @@ function formatms(
     md = true)
 
     pagetext = map(ms.pages) do pg
-        formatpage(pg, dse, corpus, commentary; md = md)
+        formatpage(pg, ms.urn, dse, corpus, commentary; md = md)
     end
     join(pagetext, "\n\n")
 end
