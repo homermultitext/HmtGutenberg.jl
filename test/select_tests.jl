@@ -6,7 +6,10 @@ using Test
 using TestSetExtensions
 
 using HmtGutenberg
+using HmtArchive.Analysis
 using CitableText, CitableCorpus
+using CitablePhysicalText
+
 
 @testset "All the tests" begin
     println(map(s -> replace(s, r".jl$" => ""), ARGS))
