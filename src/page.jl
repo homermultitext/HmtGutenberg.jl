@@ -1,4 +1,4 @@
-"""Format a plain-text edition of manuscript page `pg` using supplied data.  If `md` is true, include markdown formatting.
+"""Format a plain-text edition of manuscript page `pg` using the supplied data for text corpus, commentary relations, and DSE indexing.  If `md` is true, include markdown formatting.
 $(SIGNATURES)
 """
 function formatpage(pg::MSPage, 
@@ -47,3 +47,49 @@ function formatpage(pg::MSPage,
     
 end
 
+"""Parse a given release of the HMT archive or download the current published release of the archive, and format a plain-text edition of the manuscript page identified by URN `pgurn`.  If `md` is true, include markdown formatting.
+$(SIGNATURES)
+"""
+function formatpage(pgurn::Cite2Urn;
+    cex = nothing,  md = true, grouping = :byclass)
+    pagecollection = pgurn |> dropobject
+    if isnothing(cex)
+        @info("Downloading latest HMT release...")
+        cex = hmt_cex()
+    end
+    @info("Parsing HMT publication...")
+    codices = hmt_codices(cex)
+    pagecodex = filter(thecodex -> urn(thecodex) == pagecollection,  codices)
+    if length(pagecodex) != 1
+        @warn("Could not find a unique codex for a page $(pgurn)")
+        nothing
+    else
+
+        mspage = filter(pg -> urn(pg) == pgurn, pagecodex[1].pages)
+        if isempty(mspage)
+            @warn("Could not find unique page in MS $(pagecodex[1]) for $(pgurn)")
+        end
+        dse = hmt_dse(cex)[1]
+        corp = hmt_normalized(cex)
+        commentary = hmt_commentary(cex)[1]
+
+        formatpage(mspage[1], 
+            urn(pagecodex[1]), 
+            dse, 
+            corp,
+            commentary;
+            md = md)
+    end
+end
+
+
+
+"""Format a list of pages identified by Cite2Urn.
+$(SIGNATURES)
+"""
+function formatpages(pglist::Vector{Cite2Urn};
+    cex = nothing,  md = true, grouping = :byclass
+    )
+    stringlist = map(pg -> formatpage(pg, cex = cex, md = md, grouping = grouping), pglist)
+    join(stringlist, "\n\n")
+end

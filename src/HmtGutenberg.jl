@@ -15,6 +15,7 @@ include("scholia.jl")
 include("page.jl")
 include("manuscript.jl")
 
-export formatpage, formatms
+
+export formatpage, formatpages, formatms
 
 end # module HmtGutenberg
