@@ -2,5 +2,6 @@
 
 ```@docs
 formatpage
+formatpages
 formatms
 ```

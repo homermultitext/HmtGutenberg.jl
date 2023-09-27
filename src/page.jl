@@ -83,7 +83,6 @@ function formatpage(pgurn::Cite2Urn;
 end
 
 
-
 """Format a list of pages identified by Cite2Urn.
 $(SIGNATURES)
 """
