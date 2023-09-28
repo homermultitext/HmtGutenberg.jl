@@ -7,6 +7,7 @@ function formatpage(pg::MSPage,
     corpus::CitableTextCorpus, 
     commentary::CitableCommentary; 
     md = true, grouping = :byclass)
+    
 
     outputlines = String[]
     md ? push!(outputlines, "### $(label(pg))\n") : push!(outputlines, label(pg) * "\n")
@@ -15,9 +16,11 @@ function formatpage(pg::MSPage,
 
     iliadlines = filter(u -> startswith(workcomponent(u), "tlg0012.tlg001"), alltexts)
     reff = map(u -> passagecomponent(u), iliadlines)
+    
     @info("Formatting page $(pg)")
     if isempty(iliadlines) 
     else
+        @info("Found $(length(reff)) Iliad lines")
         if md 
             push!(outputlines, "*Iliad* $(reff[1])-$(reff[end])\n")
         else
@@ -29,6 +32,7 @@ function formatpage(pg::MSPage,
     scholia = filter(u -> startswith(workcomponent(u), "tlg5026"), alltexts)
     if isempty(scholia)
     else
+        @info("Found $(length(scholia)) scholia on $(length(reff)) Iliad lines")
         if md 
             push!(outputlines, "\nScholia to *Iliad* $(reff[1])-$(reff[end])\n")
         else
@@ -69,16 +73,39 @@ function formatpage(pgurn::Cite2Urn;
         if isempty(mspage)
             @warn("Could not find unique page in MS $(pagecodex[1]) for $(pgurn)")
         end
-        dse = hmt_dse(cex)[1]
+        dse =  hmt_dse(cex)
+        if isempty(dse)
+            @warn("No DSE records found.")
+        else
+            dse = dse[1]
+        end
+        commentary = hmt_commentary(cex)
+        if isempty(commentary)
+            @warn("No commentary found.")
+        else
+            commentary = commentary[1]
+        end 
         corp = hmt_normalized(cex)
-        commentary = hmt_commentary(cex)[1]
+        if isempty(mspage)
+            @warn("Could find `mspage`")
+        else
+            mspage = mspage[1]
+        end
+        codexurn = nothing
+        if isempty(pagecodex)
+            @warn("No codex found for $(pgurn)")
+        else
+            codexurn = urn(pagecodex[1])
+        end
+        @info("Finished checking params")
 
-        formatpage(mspage[1], 
-            urn(pagecodex[1]), 
+        formatpage(mspage, 
+            codexurn, 
             dse, 
             corp,
             commentary;
             md = md)
+            
     end
 end
 
