@@ -63,11 +63,11 @@ end
 $(SIGNATURES)
 """
 function groupAscholia(psgs::Vector{CitablePassage}, commentary::CitableCommentary; md = true)
-    mainscholia = ["Main scholia\n"]
-    ail = ["Interlinear scholia\n"]
-    aim = ["Intermarginal scholia\n"]
-    aext = ["Exterior scholia\n"]
-    aint = ["Interior scholia\n"]
+    mainscholia = ["\nMain scholia\n"]
+    ail = ["\nInterlinear scholia\n"]
+    aim = ["\nIntermarginal scholia\n"]
+    aext = ["\nExterior scholia\n"]
+    aint = ["\nInterior scholia\n"]
 
     urnlist = map(psg -> collapsePassageBy(psg.urn, 1),psgs ) |> unique
     for u in urnlist
