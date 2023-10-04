@@ -113,9 +113,39 @@ end
 """Format a list of pages identified by Cite2Urn.
 $(SIGNATURES)
 """
-function formatpages(pglist::Vector{Cite2Urn};
-    cex = nothing,  md = true, grouping = :byclass
+function formatpages(title, pglist::Vector{Cite2Urn};
+    cexdata = nothing,  md = true, grouping = :byclass
     )
-    stringlist = map(pg -> formatpage(pg, cex = cex, md = md, grouping = grouping), pglist)
-    join(stringlist, "\n\n")
+    stringlist = map(pg -> formatpage(pg, cex = cexdata, md = md, grouping = grouping), pglist)
+    header(title, md = md) * join(stringlist, "\n\n")
+end
+
+
+function header(title; md = true)
+    todaysobj = Dates.today()
+    todaystr = string(monthname(todaysobj), " ", day(todaysobj), ", ", year(todaysobj))
+    rights = "Texts are licensed under the Creative Commons Attribution-Noncommercial-Share Alike 3.0 License."
+      if (md)
+        lines = [
+            "> *File generated $(todaystr)*",
+            ">",
+            "> *" * rights, "*",
+            ">",
+            "# Homer Multitext project edition of " * title,
+            "",
+            ""
+        ]
+        join(lines, "\n")
+    else
+        lines = [
+            "File generated $(todaystr)",
+            "",
+            rights,
+            "",
+            "Homer Multitext project edition of " * title,
+            "",
+            ""
+        ]
+        join(lines, "\n")
+    end
 end

@@ -1,4 +1,5 @@
 module HmtGutenberg
+using Dates
 
 using HmtArchive.Analysis
 using CitableBase, CitableText, CitableCorpus
