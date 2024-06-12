@@ -17,9 +17,7 @@ makedocs(
     sitename = "HmtGutenberg.jl",
     pages = [
         "Overview" => "index.md",
-        "Generating editions for a page" => "puretextpage.md",
-        "Generating editions for multiple pages" => "puretextpages.md",
-        "API Documentation" => "apis.md",
+       
         ]
     )
 
