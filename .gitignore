@@ -2,3 +2,5 @@ Manifest.toml
 *~
 .vscode/
 docs/build/
+_site/
+_freeze/
