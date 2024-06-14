@@ -1,10 +1,44 @@
 # Grouping scholia
 
-::: {.callout-caution}
-Content TBA
-:::
 
-## Overview
+```{julia}
+#| echo: false
+#| warning: false
+#| output: false
+# Set to point to a local copy of HMT Archive.jl dir;
+parent = pwd() |> dirname |> dirname |> dirname
+repo = joinpath(parent, "HmtArchive.jl")
+using HmtArchive.Analysis
+cexdata = joinpath(repo, "test", "data", "2023k.cex") |> read |> String
+```
 
-- Option with VA and T to group scholia by scholia group rather than by line.
-- example page
+
+The Venetus A (Marciana 454) and the British Library's Burney 86 manuscripts have multiple groups of *scholia* distinguished by their placement on the page.
+
+The default display keeps *scholia* together in these groups (e.g., interlinear *scholia* in one group, interior *scholia* in another...). All functions for formatting editions include an options `grouping` parameter that you can use to change that to group *scholia* instead by the *Iliad* line they comment on (so if *scholia* from two different areas of the page comment on the same line, they will be grouped together)
+
+Define a page by URN.
+
+```{julia}
+#| output: false
+using CitableObject
+pg1 = Cite2Urn("urn:cite2:hmt:msA.v1:300r")
+```
+
+
+
+```{julia}
+#| warning: false
+using HmtGutenberg
+mdoutput = formatpage(pg1; grouping = :byline)
+```
+
+---
+
+## Rendered example
+
+```{julia}
+#| asis: true
+using Markdown
+mdoutput |> Markdown.parse
+```
