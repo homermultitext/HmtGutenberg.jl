@@ -33,8 +33,7 @@ pg2 = Cite2Urn("urn:cite2:hmt:msA.v1:300r")
 pagelist = [pg1, pg2]
 ```
 
-Provide a title to use in displaying the pages.
-
+Provide a heading to use in displaying the pages.
 
 
 ```{julia}
@@ -42,4 +41,16 @@ Provide a title to use in displaying the pages.
 using HmtGutenberg
 title = "Bifolio spread: pages 299 verso and 300 recto"
 mdoutput = formatpages(title, pagelist)
+```
+
+---
+
+## Rendered example
+
+The following cell formats the markdown for display in environments like Quarto, VS Code and Pluto or Jupyter notebooks:
+
+```{julia}
+#| asis: true
+using Markdown
+mdoutput |> Markdown.parse
 ```

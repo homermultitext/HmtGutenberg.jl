@@ -134,9 +134,10 @@ function header(title; md = true)
         lines = [
             "> *Edition generated $(todaystr)*",
             ">",
-            "> *" * rights, "*",
+            string("> *",rights, "*"),
             ">",
-            "# Homer Multitext project edition of " * title,
+            "# Homer Multitext project edition" ,
+            "# " * title,
             "",
             ""
         ]
@@ -147,7 +148,8 @@ function header(title; md = true)
             "",
             rights,
             "",
-            "Homer Multitext project edition of " * title,
+            "Homer Multitext project edition" ,
+            title,
             "",
             ""
         ]
