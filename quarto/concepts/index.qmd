@@ -2,13 +2,15 @@
 title: Concepts
 ---
 
-::: {.callout-caution title="TBA"}
-Incomplete notes only
+
+The Homer Multitext project has assembled a rich collection of images and data about manuscripts of the *Iliad* with *scholia*, including digital editions of many texts. Texts in the archive are encoded in TEI XML format.
+
+The motivation for the `HmtGutenberg` package is to make diplomatic versions of the texts available in formats that humans can read. It uses the `HmtArchive` package to extract diplomatic editions from the archive, and organizes *Iliad* and *scholia* texts by physical page of the manuscript.  
+
+`HmtGutenberg` supports editions with or without Markdown formatting, so that its output can be readily used digitally as a plain-text file, or can be printed or read on screen in a formatted display using any markdown-aware application.
+
+::: {.callout-tip title="Using the HMT project archive"}
+
+See the Julia [`HmtArchive`](https://neelsmith.quarto.pub/hmtarchive/) packge to work directly with data in the project's published releases.
 :::
 
-## Overview
-
-- the HMT project archive includes a lot of stuff
-- texts of *Iliad* and *scholia*, edited from MSS
-- HmtGutenberg reads a published release and formats editions 
-- organized by physical page

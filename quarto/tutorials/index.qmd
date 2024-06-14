@@ -2,4 +2,6 @@
 title: Tutorials
 ---
 
-Learn `HmtGutenberg.jl`.
+
+- [Format an edition of a single page](./textpage.qmd)
+- [Format an edition of a list of pages](./multiplepages.qmd)

@@ -2,5 +2,14 @@
 title: "Guides"
 ---
 
-Recipes for working with `HmtGutenberg.jl`
+::: {.callout-caution title="Work in progress"}
+These recipes are still in development.
+:::
+
+
+Recipes for working with `HmtGutenberg.jl`:
+
+- [input and formatting options](./formatting.qmd)
+- [options for page layout and grouping scholia](./grouping.qmd)
+- [formatting part of a manuscript](./pageslices.qmd)
 
