@@ -79,7 +79,8 @@ function groupAscholia(psgs::Vector{CitablePassage}, commentary::CitableCommenta
         if workid == "msA"
             push!(mainscholia, formatscholion(scholiaparts, commentary, md = md))
         elseif workid == "msAext"
-            push!(aext, (scholiaparts, commentary,  md = md))   
+            #push!(aext, (scholiaparts, commentary,  md = md))   
+            push!(aext, formatscholion(scholiaparts, commentary,  md = md))   
         elseif workid == "msAint"
             push!(aint, formatscholion(scholiaparts, commentary,  md = md))
         elseif workid == "msAim"
