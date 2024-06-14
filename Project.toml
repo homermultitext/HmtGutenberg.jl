@@ -1,7 +1,7 @@
 name = "HmtGutenberg"
 uuid = "09780231-1698-4933-9d9d-4e01e0abea36"
 authors = ["Neel Smith <dnsmith.neel@gmail.com>"]
-version = "0.1.1"
+version = "0.1.0"
 
 
 [deps]

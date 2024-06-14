@@ -132,22 +132,24 @@ function header(title; md = true)
     rights = "Texts are licensed under the Creative Commons Attribution-Noncommercial-Share Alike 3.0 License."
       if (md)
         lines = [
-            "> *File generated $(todaystr)*",
+            "> *Edition generated $(todaystr)*",
             ">",
-            "> *" * rights, "*",
+            string("> *",rights, "*"),
             ">",
-            "# Homer Multitext project edition of " * title,
+            "# Homer Multitext project edition" ,
+            "# " * title,
             "",
             ""
         ]
         join(lines, "\n")
     else
         lines = [
-            "File generated $(todaystr)",
+            "Edition generated $(todaystr)",
             "",
             rights,
             "",
-            "Homer Multitext project edition of " * title,
+            "Homer Multitext project edition" ,
+            title,
             "",
             ""
         ]

@@ -51,6 +51,7 @@ website:
         - guides/index.qmd
         - guides/formatting.qmd
         - guides/grouping.qmd
+        - guides/pageslices.qmd
 
     - title: "Reference"
       contents: 
