@@ -1,0 +1,69 @@
+project:
+  type: website
+jupyter: julia-1.10  
+theme: spacelab
+execute:
+  freeze: auto
+date: last-modified  
+margin-header: "Package version: `0.1.0`"
+format:
+  html: 
+    toc: true
+
+
+website:
+  title: "hmtgutenberg"
+  navbar:
+    background: primary
+    search: true
+    left:
+      - text: "Home"
+        file: index.qmd
+      - text: "Concepts"
+        file: concepts/index.qmd           
+      - text: "Tutorials"
+        file: tutorials/index.qmd          
+      - text: "Guides"
+        file: guides/index.qmd           
+      - text: "Reference"
+        file: reference/index.qmd  
+    right:   
+      - icon: github
+        href: https://github.com/homermultitext/HmtGutenberg.jl
+        aria-label: GitHub
+      - icon: person-circle
+        menu:
+          - text: "About me"
+            href: https://neelsmith.quarto.pub
+          - text: "More of my digital scholarship"
+            href: https://neelsmith.quarto.pub/digschol/
+        aria-label: "More of my work"  
+
+  sidebar:
+    - title: "Tutorials"
+      contents: 
+        - tutorials/index.qmd
+        - tutorials/textpage.qmd
+        - tutorials/multiplepages.qmd
+
+    - title: "Guides"
+      contents:
+        - guides/index.qmd
+        - guides/formatting.qmd
+        - guides/grouping.qmd
+
+    - title: "Reference"
+      contents: 
+        - reference/index.qmd
+
+    - title: "Concepts"
+      contents: 
+        - concepts/index.qmd
+
+        
+
+    - title: "Home"
+      contents:
+        - index.qmd               
+ 
+

@@ -1,0 +1,38 @@
+---
+title: Reference
+---
+
+
+
+## Exported functions
+
+`formatpage` 
+
+:::{.callout-note appearance="minimal"}
+```{julia}
+#| echo: false
+#| warning: false
+using HmtGutenberg
+@doc formatpage
+```
+:::
+
+`formatpages`
+
+:::{.callout-note appearance="minimal"}
+```{julia}
+#| echo: false
+#| warning: false
+@doc formatpage
+```
+:::
+
+`formatms`
+
+:::{.callout-note appearance="minimal"}
+```{julia}
+#| echo: false
+#| warning: false
+@doc formatms
+```
+:::

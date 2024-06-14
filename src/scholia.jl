@@ -3,7 +3,7 @@
 $(SIGNATURES)
 """
 function formatscholion(scholionparts::Vector{CitablePassage}, commentary::CitableCommentary; md = true, withref = true)
-    txt = scholiontext(scholionparts)
+    txt = scholiontext(scholionparts) * "\n"
 
     referenceurn = collapsePassageBy(scholionparts[1].urn, 1) |> dropexemplar 
     linkurns = filter(pr -> pr[1] == referenceurn, commentary.commentary)
@@ -12,7 +12,7 @@ function formatscholion(scholionparts::Vector{CitablePassage}, commentary::Citab
     else
         linkref = linkurns[1][2] |> passagecomponent
         if withref
-            md ? "On *Iliad* $(linkref): $(txt)"  :  "On Iliad $(linkref): $(txt)"
+            md ? "On *Iliad* $(linkref): $(txt)\n"  :  "On Iliad $(linkref): $(txt)\n"
         else
             txt
         end
@@ -79,7 +79,7 @@ function groupAscholia(psgs::Vector{CitablePassage}, commentary::CitableCommenta
         if workid == "msA"
             push!(mainscholia, formatscholion(scholiaparts, commentary, md = md))
         elseif workid == "msAext"
-            push!(aext, formatscholion(scholiaparts, commentary,  md = md))   
+            push!(aext, (scholiaparts, commentary,  md = md))   
         elseif workid == "msAint"
             push!(aint, formatscholion(scholiaparts, commentary,  md = md))
         elseif workid == "msAim"
@@ -121,7 +121,7 @@ function pagescholiabyline(lines::Vector{CtsUrn}, commentary::CitableCommentary,
             for s in scholiaurns
                 @debug("CHECKING $(s[1])")
                 scholparts = filter(psg -> urncontains(s[1], psg.urn), corpus.passages)
-                scholtext = scholiontext(scholparts)
+                scholtext = scholiontext(scholparts) * "\n"
                 md ? push!(outputlines, "- $(scholtext)") : push!(outputlines, scholtext)
             end
             push!(outputlines, "\n")

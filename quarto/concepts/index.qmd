@@ -1,0 +1,14 @@
+---
+title: Concepts
+---
+
+::: {.callout-caution title="TBA"}
+Incomplete notes only
+:::
+
+## Overview
+
+- the HMT project archive includes a lot of stuff
+- texts of *Iliad* and *scholia*, edited from MSS
+- HmtGutenberg reads a published release and formats editions 
+- organized by physical page

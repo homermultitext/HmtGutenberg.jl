@@ -1,0 +1,23 @@
+# Source data and formatting pages
+
+::: {.callout-caution title="Incomplete"}
+More content TBA
+:::
+
+There are three exported functions for formatting HMT texts:
+
+1. `formatpage` formats a single pages 
+2. `formatpages` formats a list of pages
+3. `formatms` formats an entire manuscript
+
+
+All three functions share some optional parameters:
+
+- `cex` (default value: `nothing`) You can provide the full text in CEX format of a published release of the Homer Multitext project. If no value is provided, the current published release is downloaded over the internet and used.
+- `md` (default value: `true`) Include markdown formatting.  If false, plain text without markdown is created.
+
+
+
+::: {.callout-tip title="Grouping scholia"}
+> ADD NOTE HERE ON GUIDE FOR GROUPING
+:::

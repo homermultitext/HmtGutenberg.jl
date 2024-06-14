@@ -1,0 +1,4 @@
+- source: project
+  quarto-pub:
+    - id: ad777e75-a4d4-40f0-96c3-c8a6e835a5c9
+      url: 'https://neelsmith.quarto.pub/hmtgutenberg'
