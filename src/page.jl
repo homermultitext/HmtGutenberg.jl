@@ -132,7 +132,7 @@ function header(title; md = true)
     rights = "Texts are licensed under the Creative Commons Attribution-Noncommercial-Share Alike 3.0 License."
       if (md)
         lines = [
-            "> *File generated $(todaystr)*",
+            "> *Edition generated $(todaystr)*",
             ">",
             "> *" * rights, "*",
             ">",
@@ -143,7 +143,7 @@ function header(title; md = true)
         join(lines, "\n")
     else
         lines = [
-            "File generated $(todaystr)",
+            "Edition generated $(todaystr)",
             "",
             rights,
             "",

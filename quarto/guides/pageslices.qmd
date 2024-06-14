@@ -1,0 +1,5 @@
+# Format part of a manuscript
+
+::: {.callout-caution title="TBA"}
+Recipe for slicing a range of pages from a `Codex` object and formatting them
+:::

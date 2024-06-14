@@ -14,6 +14,7 @@ function formatms(
     end
 
     pagetext = map(ms.pages) do pg
+        @info("Formatting page $(pg)...")
         formatpage(pg, ms.urn, dse, corpus, commentary; md = md)
     end
     join(pagetext, "\n\n")
