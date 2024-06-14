@@ -29,6 +29,7 @@ mdoutput = formatpage(pg1)
 
 The default format includes some light formatting in Markdown. 
 
+---
 
 ## Rendered example
 
