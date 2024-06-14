@@ -18,7 +18,7 @@ function formatpageiliad(lns::Vector{CtsUrn}, corpus::CitableTextCorpus; md = tr
         elseif length(matches) > 1
             @warn("Matched multiple passages in corpus for URN $(ln).")
         else
-            push!(iliadlines, iliadline(matches[1], md = md))
+            push!(iliadlines, iliadline(matches[1], md = md) * "\n")
         end
     end
     join(iliadlines, "\n")

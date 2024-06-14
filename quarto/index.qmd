@@ -11,5 +11,5 @@ The current release focuses on simple pure-text editions (plain text and markdow
 
 | | Learning the package | Using the package |
 | --- | --- | --- |
-| **Hands-on** |  Try a [tutorial](./tutorials/) to start using  the package  | Find [recipes](./guides/) for specific tasks |
-| **Cognition** | Learn [concepts](./concepts/)   | See [reference information](./reference/) (including API documentation for all exported functions) |
+| **Hands-on** |  Start using `HmtGutenberg` with a [hands-on tutorial](./tutorials/)  | Find [recipes](./guides/) for specific tasks |
+| **Cognition** | Learn [concepts](./concepts/)   | See [API documentation for exported functions](./reference/) |

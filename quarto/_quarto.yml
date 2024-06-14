@@ -43,10 +43,14 @@ website:
     - title: "Tutorials"
       contents: 
         - tutorials/index.qmd
+        - tutorials/textpage.qmd
+        - tutorials/multiplepages.qmd
 
     - title: "Guides"
       contents:
         - guides/index.qmd
+        - guides/formatting.qmd
+        - guides/grouping.qmd
 
     - title: "Reference"
       contents: 

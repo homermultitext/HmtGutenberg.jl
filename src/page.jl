@@ -41,7 +41,6 @@ function formatpage(pg::MSPage,
 
         if grouping == :byclass && (msurn == VENETUS_A || msurn == BURNEY86)
             push!(outputlines, pagescholiabygroup(msurn, scholia, corpus, commentary; md = md))
-
         else
             push!(outputlines, pagescholiabyline(iliadlines, commentary, corpus; md = md))
         end
@@ -98,7 +97,13 @@ function formatpage(pgurn::Cite2Urn;
             codexurn = urn(pagecodex[1])
         end
         @info("Finished checking params")
-
+#=
+    pg::MSPage, 
+    msurn::Cite2Urn,
+    dse::DSECollection, 
+    corpus::CitableTextCorpus, 
+    commentary::CitableCommentary
+=#
         formatpage(mspage, 
             codexurn, 
             dse, 

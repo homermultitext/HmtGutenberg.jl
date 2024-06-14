@@ -1,0 +1,10 @@
+# Grouping scholia
+
+::: {.callout-caution}
+Content TBA
+:::
+
+## Overview
+
+- Option with VA and T to group scholia by scholia group rather than by line.
+- example page
