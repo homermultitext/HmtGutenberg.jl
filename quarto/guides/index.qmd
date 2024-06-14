@@ -2,5 +2,5 @@
 title: "Guides"
 ---
 
-Recipe book for working with `HmtGutenberg.jl`
+Recipes for working with `HmtGutenberg.jl`
 

@@ -9,13 +9,15 @@ function formatms(
     commentary::CitableCommentary; 
     md = true)
 
-    if ms != VENETUS_A
+    if urn(ms) != VENETUS_A
+        @warn("MS $(ms) not implemented.")
         @error("Only VA manuscript currently implemented.")
+
     end
 
     pagetext = map(ms.pages) do pg
         @info("Formatting page $(pg)...")
-        formatpage(pg, ms.urn, dse, corpus, commentary; md = md)
+        formatpage(pg, urn(ms), dse, corpus, commentary; md = md)
     end
     join(pagetext, "\n\n")
 end
