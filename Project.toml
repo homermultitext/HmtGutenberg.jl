@@ -1,7 +1,7 @@
 name = "HmtGutenberg"
 uuid = "09780231-1698-4933-9d9d-4e01e0abea36"
 authors = ["Neel Smith <dnsmith.neel@gmail.com>"]
-version = "0.1.1"
+version = "0.1.2"
 
 
 [deps]
@@ -23,10 +23,10 @@ CitableAnnotations = "0.5"
 CitableBase = "10"
 CitableCorpus = "0.13"
 CitableObject = "0.16"
-CitablePhysicalText = "0.9"
+CitablePhysicalText = "0.11"
 CitableText = "0.16"
 DocStringExtensions = "0.9"
-Documenter = "0.27"
+Documenter = "1"
 HmtArchive = "0.14"
 TestSetExtensions = "2"
 julia = "1.9"
