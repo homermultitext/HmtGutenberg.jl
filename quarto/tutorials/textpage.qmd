@@ -5,10 +5,9 @@
 #| warning: false
 #| output: false
 # Set to point to a local copy of HMT Archive.jl dir;
-parent = pwd() |> dirname |> dirname |> dirname
-repo = joinpath(parent, "HmtArchive.jl")
+repo = pwd() |> dirname |> dirname
 using HmtArchive.Analysis
-cexdata = joinpath(repo, "test", "data", "2023k.cex") |> read |> String
+cexdata = joinpath(repo, "test", "data", "hmt-2024a.cex") |> read |> String
 ```
 
 Pure-text editions are organized by physical page of a manuscript, identified by a `Cite2Urn`. 

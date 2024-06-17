@@ -6,7 +6,7 @@
     sequence = 599
     samplepage = MSPage(u, pglabel, rv, img, sequence)
 
-    cexdata = joinpath(pwd(), "data", "hmt-2023a.cex") |> read |> String
+    cexdata = joinpath(pwd(), "data", "hmt-2024a.cex") |> read |> String
     dse = hmt_dse(cexdata)[1]
     corpus = hmt_normalized(cexdata)
     commentary = hmt_commentary(cexdata)[1]
