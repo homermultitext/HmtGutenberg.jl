@@ -1,4 +1,24 @@
 
+"""Format a plain-text edition of texts in a manuscript identifed by Cite2Urn, optionally providing a published release of the HMT project.
+$(SIGNATURES)
+"""
+function formatms(msurn::Cite2Urn; cexsrc = hmt_cex(), md = true, grouping = :byclass)
+    mschoice = filter(ms -> urn(ms) == msurn, hmt_codices(cexsrc))
+    if isempty(mschoice)
+        @warn("No manuscripts matched URN $(msurn)")
+    else
+        ms = mschoice[1]
+        dse = hmt_dse(cexsrc)[1]
+        corpus = hmt_normalized(cexsrc)
+        commentary = hmt_commentary(cexsrc)[1]
+
+
+        formatms(ms; dse = dse, corpus = corpus, commentary = commentary, md = md, grouping = grouping)
+    end
+end
+
+
+
 """Format a plain-text edition of texts in manuscript `ms` using supplied data.  If `md` is true, include markdown formatting.
 $(SIGNATURES)
 """
